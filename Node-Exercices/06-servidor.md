@@ -20,5 +20,5 @@ el local host es el nombre de dominio que usa nuestra computadora para referirse
 
 ¿Qué hace curl y por qué es útil para probar un servidor sin usar el navegador?
 
-curl es una herramienta de red que nos permite ver que se envia y que se recibe, aclarar que esto es sin irtefaz grafica, y talvez necesitamos especificar los datos que queremos recibir
+curl es una herramienta de red que nos permite ver que se envia y que se recibe en el servidor, aclarar que esto es sin irtefaz grafica, y talvez necesitamos especificar los datos que queremos recibir
 
