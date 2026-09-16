@@ -6,12 +6,12 @@ const server = createServer((request, response) => {
     const url = request.url;
     response.setHeader('Content-Type', 'text/plain');
     
-    if (url === '/alumnos') {
-        response.write('Carlos, Maria, Juan');
+    if (url === '/') {
+        response.write('Inicio');
         response.end();
     }
-    else if (url === '/') {
-        response.write('Inicio');
+    else if (url === '/alumnos') {
+        response.write('Carlos, Maria, Juan');
         response.end();
     }
     else {
