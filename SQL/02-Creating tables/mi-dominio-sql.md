@@ -13,3 +13,11 @@ CREATE TABLE pokemon (
 	id_trainer INT,
     FOREIGN KEY (id_trainer) REFERENCES trainer(id)
 )
+
+
+CREATE TABLE trainer (
+    id INT PRIMARY KEY NOT NULL,
+    name text NOT NULL,
+    city text NOT NULL,
+
+)
