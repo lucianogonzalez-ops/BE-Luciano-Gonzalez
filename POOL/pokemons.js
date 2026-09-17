@@ -2,7 +2,7 @@ import { response } from "express"
 import { pool } from "./db.js"
 
 
-export async function insertIntoPokemon(name, id_trainer, types) {
+export async function insertPokemon(name, id_trainer, types) {
     try {
         const queryText = 'INSERT INTO pokemon (name, id_trainer, types) VALUES ($1, $2, $3)'
         
@@ -49,7 +49,7 @@ export async function updatePokemon(types , id) {
     }
 }
 
-export async function showAllPokemons() {
+export async function getAllPokemons() {
     try {
         const res = await pool.query('SELECT * FROM pokemon')
         console.log(res.rows)
@@ -60,7 +60,7 @@ export async function showAllPokemons() {
     }
 }
 
-export async function showAllPokemonsByID(pokemonId) {
+export async function getPokemonsByID(pokemonId) {
     try {
         const queryText = 'SELECT name,types FROM pokemon WHERE id = $1';
 
