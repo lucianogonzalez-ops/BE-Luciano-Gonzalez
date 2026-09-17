@@ -17,7 +17,7 @@ export async function insertPokemon(name, id_trainer, types) {
     }
 }
 
-export async function deletePokemon(id) {
+export async function deletePokemonById(id) {
     try {
         const queryText = 'DELETE FROM pokemon WHERE id = $1'
         
@@ -52,7 +52,6 @@ export async function updatePokemon(types , id) {
 export async function getAllPokemons() {
     try {
         const res = await pool.query('SELECT * FROM pokemon')
-        console.log(res.rows)
         
         return res
     } catch (error) {
