@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllPokemons,getPokemonsByID,insertPokemon, deletePokemon, updatePokemon} = require('./pokemons');
+const { getAllPokemons,getPokemonsByID,insertPokemon, deletePokemonById, updatePokemon} = require('./pokemons');
 const app = express();
 
 const PORT = 3000;
@@ -47,7 +47,7 @@ app.post('/items', async(req, res) => {
 app.delete('/items/:id', async (req, res) => {
   try {
     const { id} = req.body;
-    const content = await deletePokemon(id);
+    const content = await deletePokemonById(id);
     res.status(200).json(content);
   } catch (error) {
     console.log(error)
