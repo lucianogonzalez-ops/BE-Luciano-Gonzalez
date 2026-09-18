@@ -33,8 +33,8 @@ app.get('/items/:id', async(req, res) => {
 app.post('/items', async(req, res) => {
 
   try {
-    const { name, id_trainer,types } = req.body;
-    const content = await insertPokemon(name,id_trainer,types);
+    const { name, types } = req.body;
+    const content = await insertPokemon(name,types);
     res.status(201).json(content);
   } catch (error) {
     console.log(error)
