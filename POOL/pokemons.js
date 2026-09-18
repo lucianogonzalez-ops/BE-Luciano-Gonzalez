@@ -57,7 +57,6 @@ export async function updatePokemon(updateType,pokemonId) {
 export async function getAllPokemons() {
     try {
         const pokemons = await Pokemon.findAll();
-        console.log(pokemons);
 
         return pokemons;
     } catch (error) {
@@ -73,7 +72,6 @@ export async function getPokemonsByID(pokemonId) {
                 id:pokemonId
             }
         })
-        console.log(pokemon)
 
 
         
@@ -83,7 +81,6 @@ export async function getPokemonsByID(pokemonId) {
     }
 }
 
-getAllPokemons()
 
 
 
