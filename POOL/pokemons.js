@@ -1,15 +1,32 @@
 import { response } from "express"
 import { pool } from "./db.js"
+import db from '../models/index.js'
+import { where } from "sequelize";
+const Pokemon = db.pokemons;
 
 
-export async function insertPokemon(name, id_trainer, types) {
+export async function insertPokemon(name, types) {
     try {
-        const queryText = 'INSERT INTO pokemon (name, id_trainer, types) VALUES ($1, $2, $3)'
+        const newPokemon = await Pokemon.create({
+            name: name,
+            types: types
+        });
+
+        return newPokemon;
+    } catch (error) {
+        console.error(error.message);
+        throw error;
+    }
+}
+export async function deletePokemonById(pokemonId) {
+    try {
         
-        const values = [name, id_trainer, types]
-        
-        const response = await pool.query(queryText, values)
-        return response
+        const deletedPokemon = Pokemon.destroy({
+            where:{
+                id:pokemonId
+            }
+        })
+        return deletedPokemon
     }
     catch (error)
     {
@@ -17,31 +34,19 @@ export async function insertPokemon(name, id_trainer, types) {
     }
 }
 
-export async function deletePokemonById(id) {
+
+export async function updatePokemon(updateType,pokemonId) {
     try {
-        const queryText = 'DELETE FROM pokemon WHERE id = $1'
         
-        const values = [id]
-        
-        const response = await pool.query(queryText, values)
-        return response
-    }
-    catch (error)
-    {
-        console.error(error.message)
-    }
-}
-
-
-export async function updatePokemon(types , id) {
-    try {
-        const queryText = 'UPDATE pokemon set types = $1 where id = $2'
-
-        
-        const values = [types,id]
-        
-        const response = await pool.query(queryText, values)
-        return response
+        const updatedPokemon = await Pokemon.update(
+            {types:updateType},
+            {
+                where:{
+                    id:pokemonId
+                }
+            }
+        )
+        return updatedPokemon
     }
     catch (error)
     {
@@ -51,23 +56,26 @@ export async function updatePokemon(types , id) {
 
 export async function getAllPokemons() {
     try {
-        const res = await pool.query('SELECT * FROM pokemon')
-        
-        return res
+        const pokemons = await Pokemon.findAll();
+
+        return pokemons;
     } catch (error) {
-        console.error(error.message)
+        console.error(error.message);
+        throw error;
     }
 }
 
 export async function getPokemonsByID(pokemonId) {
     try {
-        const queryText = 'SELECT name,types FROM pokemon WHERE id = $1';
+        const pokemon = await Pokemon.findAll({
+            where:{
+                id:pokemonId
+            }
+        })
 
-        const values = [pokemonId];
 
-        const response = await pool.query(queryText, values);
         
-        return response
+        return pokemon
     } catch (error) {
         console.error(error.message)
     }
