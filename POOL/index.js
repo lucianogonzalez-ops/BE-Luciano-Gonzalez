@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllPokemons,getPokemonsByID,insertPokemon, deletePokemonById, updatePokemon} = require('./pokemons');
+const { getAllPokemons,getPokemonsByID,insertPokemon, deletePokemonById, updatePokemon, getAllPokemonsWithLimitAndOffset, getPokemonsByIDHigherThan, getAllPokemonsByTrainer} = require('./pokemons');
 const app = express();
 
 const PORT = 3000;
@@ -9,6 +9,32 @@ app.use(express.json());
 
 app.get('/items', async(req, res) => {
     const items = await getAllPokemons();
+    res.json(items);
+});
+
+app.get('/items/:id', async(req, res) => {
+      const { id } = req.params
+      const items = await getPokemonsByID(id);
+    res.json(items);
+});
+
+app.get('/pokemons/trainer/:trainer', async(req, res) => {
+    const { trainer } = req.params
+    const items = await getAllPokemonsByTrainer(trainer);
+    res.json(items);
+});
+
+app.get('/pokemons/:id', async(req, res) => {
+    const { id } = req.params
+    const items = await getPokemonsByIDHigherThan(id);
+    res.json(items);
+});
+
+
+
+
+app.get('/offsset', async(req, res) => {
+    const items = await getAllPokemonsWithLimitAndOffset();
     res.json(items);
 });
 
@@ -23,13 +49,15 @@ app.put('/items', async(req, res) => {
     }
 });
 
-app.get('/items/:id', async(req, res) => {
-  const pokemonId = Number(req.params.id);
-  const pokemon = await getPokemonsByID(pokemonId);
-  
-  
-  res.json(pokemon);
-});
+
+
+
+
+
+
+
+
+
 app.post('/items', async(req, res) => {
 
   try {
